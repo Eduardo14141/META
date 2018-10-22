@@ -38,95 +38,105 @@
                         imagenesJefe[7]="img/Bosses/Boss5.png";
                     
         %>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>META | Jefes</title>
-        <link rel="stylesheet" href="Estilos/Jefes.css">
-        <link rel="icon" href="img/LOGOI.ico">
-    </head>
-    <body>
-        <div class="l-site">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>META | Jefes</title>
+    <link rel="stylesheet" href="Estilos/Jefes.css">
+    <link rel="icon" href="img/LOGOI.ico">
+</head>
+
+<body>
+    <div class="l-site">
         <div class="l-nav" scroll="no">
             <nav class="nav">
                 <ul>
                     <li><a href="Estudiante.jsp"><img src="img/LOGOSquare.png" id="logo"></a></li>
-                    <li class="hi"><w>¡</w>Hola <z><%=e.getNombre() %></z><y>!</y></li>
+                    <li class="hi">
+                        <w>¡</w>Hola <z>
+                            <%=e.getNombre() %>
+                        </z>
+                        <y>!</y>
+                    </li>
                     <li>
-                        <x style="color:#8ED948;"><%=es.getXp() %>XP</x>
+                        <x style="color:#8ED948;">
+                            <%=es.getXp() %>XP</x>
                     </li>
                     <li class="nav-primary"><a id="studyL" href="Sesiones.jsp">Programar Estudio</a></li>
                     <li class="nav-primary"><a id="homewL" href="Tareas.jsp">Tareas</a></li>
-                    <li class="nav-primary"><a id="bossL" href="Jefes.jsp"><y>Jefes</y></a></li>
+                    <li class="nav-primary"><a id="bossL" href="Jefes.jsp">
+                            <y>Jefes</y>
+                        </a></li>
                     <li class="nav-primary"><a id="tutorL" href="MisVinculos.jsp">Tutor</a></li>
                     <li class="nav-primary"><a id="home" href="Datos.jsp">Ajustes</a></li>
                     <li class="nav-primary"><a id="salir" href="Salir">Cerrar Sesión</a></li>
                 </ul>
             </nav>
         </div>
-            <div class="l-page">
-                <div class="menu">
+        <div class="l-page">
+            <div class="menu">
                 <div class="menu-hamburger"></div>
-                </div>
-                    <section class="band band-c">
+            </div>
+            <section class="band band-c">
                 <div class="band-container">
                     <div class="band-inner">
-                    <h1>Crea jefes ;)</h1><hr>   
+                        <h1>Crea jefes ;)</h1>
+                        <hr>
                         <form id="FormAJ" method="post">
-                <input type="text" id="Jefe" name="Jefe" placeholder="Nombre del Jefe">
-                <input type="date" id="Fin" name="Fin" placeholder="Fecha límite:">
-                </form><br>
+                            <input type="text" id="Jefe" name="Jefe" placeholder="Nombre del Jefe">
+                            <input type="date" id="Fin" name="Fin" placeholder="Fecha límite:">
+                        </form><br>
                         <p>Elige la imagen de tu jefe:</p>
-            <div class="gallery">
-                <a href="#">
-    <figure>
-      <img src="img/Bosses/Boss1.png" alt="Jefe 1">
-        <figcaption><button onclick="AgImg(1)">Seleccionar</button></figcaption>
-    </figure>
-  </a>
-                <a href="#">
-    <figure>
-      <img src="img/Bosses/Boss2.png" alt="Jefe 2">
-        <figcaption><button onclick="AgImg(2)">Seleccionar</button></figcaption>
-    </figure>
-  </a>
-                <a href="#">
-    <figure>
-      <img src="img/Bosses/Boss4.png" alt="Jefe 3">
-        <figcaption><button onclick="AgImg(3)">Seleccionar</button></figcaption>
-    </figure>
-  </a>
-                <a href="#">
-    <figure>
-      <img src="img/Bosses/boss8.png" alt="Jefe 4">
-        <figcaption><button onclick="AgImg(4)">Seleccionar</button></figcaption>
-    </figure>
-  </a>
-                <a href="#">
-    <figure>
-      <img src="img/Bosses/Boss6.png" alt="Jefe 5">
-        <figcaption><button onclick="AgImg(5)">Seleccionar</button></figcaption>
-    </figure>
-  </a>
-                <a href="#">
-    <figure>
-      <img src="img/Bosses/descarga.png" alt="Jefe 6">
-        <figcaption><button onclick="AgImg(6)">Seleccionar</button></figcaption>
-    </figure>
-  </a>
-                <a href="#">
-    <figure>
-      <img src="img/Bosses/Boss7.png" alt="Jefe 6">
-        <figcaption><button onclick="AgImg(7)">Seleccionar</button></figcaption>
-    </figure>
-  </a>
-                <a href="#">
-    <figure>
-      <img src="img/Bosses/Boss5.png" alt="Jefe 6">
-        <figcaption><button onclick="AgImg(8)">Seleccionar</button></figcaption>
-    </figure>
-  </a>
-            </div>
-                      <input type="button" onclick="AgJefe(<%=es.getXp() %>)" value="Crear Jefe">  
-            
+                        <div class="gallery">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/Bosses/Boss1.png" alt="Jefe 1">
+                                    <figcaption><button onclick="AgImg(1)">Seleccionar</button></figcaption>
+                                </figure>
+                            </a>
+                            <a href="#">
+                                <figure>
+                                    <img src="img/Bosses/Boss2.png" alt="Jefe 2">
+                                    <figcaption><button onclick="AgImg(2)">Seleccionar</button></figcaption>
+                                </figure>
+                            </a>
+                            <a href="#">
+                                <figure>
+                                    <img src="img/Bosses/Boss4.png" alt="Jefe 3">
+                                    <figcaption><button onclick="AgImg(3)">Seleccionar</button></figcaption>
+                                </figure>
+                            </a>
+                            <a href="#">
+                                <figure>
+                                    <img src="img/Bosses/boss8.png" alt="Jefe 4">
+                                    <figcaption><button onclick="AgImg(4)">Seleccionar</button></figcaption>
+                                </figure>
+                            </a>
+                            <a href="#">
+                                <figure>
+                                    <img src="img/Bosses/Boss6.png" alt="Jefe 5">
+                                    <figcaption><button onclick="AgImg(5)">Seleccionar</button></figcaption>
+                                </figure>
+                            </a>
+                            <a href="#">
+                                <figure>
+                                    <img src="img/Bosses/descarga.png" alt="Jefe 6">
+                                    <figcaption><button onclick="AgImg(6)">Seleccionar</button></figcaption>
+                                </figure>
+                            </a>
+                            <a href="#">
+                                <figure>
+                                    <img src="img/Bosses/Boss7.png" alt="Jefe 6">
+                                    <figcaption><button onclick="AgImg(7)">Seleccionar</button></figcaption>
+                                </figure>
+                            </a>
+                            <a href="#">
+                                <figure>
+                                    <img src="img/Bosses/Boss5.png" alt="Jefe 6">
+                                    <figcaption><button onclick="AgImg(8)">Seleccionar</button></figcaption>
+                                </figure>
+                            </a>
+                        </div>
+                        <input type="button" onclick="AgJefe(<%=es.getXp() %>)" value="Crear Jefe">
+
                     </div>
                 </div>
             </section>
