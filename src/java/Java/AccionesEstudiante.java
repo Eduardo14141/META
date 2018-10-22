@@ -1,6 +1,8 @@
 package Java;
 
 import TablasSQL.Comentario;
+import TablasSQL.Jefes;
+import TablasSQL.Misiones;
 import TablasSQL.Sesiones;
 import TablasSQL.Tarea;
 import TablasSQL.Tutor;
@@ -407,6 +409,108 @@ public class AccionesEstudiante {
             }
         }catch(SQLException d){
             System.out.println("Hubo un error al crear el vínculo");
+            System.out.println(Arrays.toString(d.getStackTrace()));
+            System.out.println(d.getMessage());
+        }
+        return status;
+    }
+    public static Jefes ObtenerJefeActivo (int idJefe){
+        Jefes e = new Jefes();
+        try{
+            Connection con = ConexiónBD.getConnection();
+            String Q = "SELECT * FROM jefes where idJefe=?";
+            PreparedStatement ps = con.prepareStatement(Q);
+            ps.setInt(1, idJefe);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                e.setIdJefe(rs.getInt(1));
+                e.setJefe(rs.getString(2));
+                e.setIdAlumno(rs.getInt(3));
+                e.setInicio(rs.getString(4));
+                e.setFin(rs.getString(5));
+                e.setActivo(rs.getInt(6));
+                e.setImgJefe(rs.getInt(7));
+            }
+        }catch(SQLException d){
+            System.out.println("Error al obtener estudiante activo");
+            System.out.println(d.getMessage());
+            System.out.println(Arrays.toString(d.getStackTrace()));
+        }        
+        return e;
+    }
+    public static List<Misiones> getMisionesJefe(int idJefe){
+        List<Misiones> lista= new ArrayList<Misiones>();
+        try{
+            try (Connection con = ConexiónBD.getConnection()) {
+                String Q="select * from Misiones where idJefe=?";
+                PreparedStatement ps = con.prepareStatement(Q);
+                ps.setInt(1, idJefe);
+                ResultSet rs= ps.executeQuery();
+                while(rs.next()){
+                    Misiones m = new Misiones();
+                    m.setIdMision(rs.getInt(1));
+                    m.setMision(rs.getString(2));
+                    m.setIdJefe(rs.getInt(3));
+                    m.setInicio(rs.getString(4));
+                    m.setFin(rs.getString(5));
+                    m.setAprox(rs.getString(6));
+                    m.setActivo(rs.getInt(7));
+                    
+                    lista.add(m);
+                }
+            }
+        }catch(SQLException d){
+            System.out.println("Error al obtener misiones por jefe");
+            System.out.println(Arrays.toString(d.getStackTrace()));
+            System.out.println(d.getMessage());
+        }
+        return lista;
+    }
+    public static List<Jefes> getAllJefes(int idAlumno){
+        List<Jefes> lista= new ArrayList<Jefes>();
+        try{
+            try (Connection con = ConexiónBD.getConnection()) {
+                String Q = "select * from Jefes where idAlumno=?";
+                PreparedStatement ps = con.prepareStatement(Q);
+                ps.setInt(1, idAlumno);
+                ResultSet rs= ps.executeQuery();
+                while(rs.next()){
+                    Jefes m = new Jefes();
+                    m.setIdJefe(rs.getInt(1));
+                    m.setJefe(rs.getString(2));
+                    m.setIdAlumno(rs.getInt(3));
+                    m.setInicio(rs.getString(4));
+                    m.setFin(rs.getString(5));
+                    m.setActivo(rs.getInt(6));
+                    m.setImgJefe(rs.getInt(7));
+                    System.out.println(rs.getInt(7));
+                    
+                    lista.add(m);
+                }
+            }
+        }catch(SQLException d){
+            System.out.println("Error al obtener los jefes del estudiante");
+            System.out.println(Arrays.toString(d.getStackTrace()));
+            System.out.println(d.getMessage());
+        }
+        return lista;
+    }
+    public static int AñadirJefe(Jefes e){
+        int status=0;
+        try{
+            try (Connection con = ConexiónBD.getConnection()) {
+                String Q = "insert into Jefes (Jefe, idAlumno, Inicio, Fin, activo, img) values(?,?,?,?,?,?)";
+                PreparedStatement ps = con.prepareStatement(Q);
+                ps.setString(1, e.getJefe());
+                ps.setInt(2, e.getIdAlumno());
+                ps.setString(3, getFecha());
+                ps.setString(4, e.getFin());
+                ps.setInt(5, 0);
+                ps.setInt(6, e.getImgJefe());
+                status=ps.executeUpdate();
+            }
+        }catch(SQLException d){
+            System.out.println("Hubo un error al Añadir Jefe");
             System.out.println(Arrays.toString(d.getStackTrace()));
             System.out.println(d.getMessage());
         }

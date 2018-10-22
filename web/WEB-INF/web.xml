@@ -56,6 +56,10 @@
         <servlet-name>DesactivarComentario</servlet-name>
         <servlet-class>Servlets.DesactivarComentario</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CrearJefe</servlet-name>
+        <servlet-class>Servlets.CrearJefe</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GuardarUsuario</servlet-name>
         <url-pattern>/GuardarUsuario</url-pattern>
@@ -111,6 +115,10 @@
     <servlet-mapping>
         <servlet-name>DesactivarComentario</servlet-name>
         <url-pattern>/DesactivarComentario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CrearJefe</servlet-name>
+        <url-pattern>/CrearJefe</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
