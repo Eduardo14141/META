@@ -3,6 +3,7 @@ package Servlets;
 import Java.AccionesCuenta;
 import TablasSQL.Cuenta;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import javax.servlet.ServletException;
@@ -16,26 +17,33 @@ public class GuardarPassword extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        
         HttpSession sesion = (HttpSession) request.getSession();
-        Cuenta q = (Cuenta) sesion.getAttribute("Usuario");
-        String pass= request.getParameter("pass2");        
-        if(pass== null || pass.trim().isEmpty() || q==null || q.getIdCuenta()==0) response.sendRedirect("Cuenta.jsp");
+        Cuenta e = (Cuenta) sesion.getAttribute("Usuario");
+        
+        String pass= request.getParameter("pass");
+        String new_pass= request.getParameter("new_pass");
+        System.out.println(pass);
+        System.out.println(new_pass);
+        PrintWriter out = response.getWriter();
+        
+        if(e == null || e.getIdCuenta() == 0) out.print("{\"error\":true, \"description\": \"La sesión ha caducado\"}");
+        else if(pass == null || pass.trim().isEmpty()) out.print("{\"error\":true, \"description\": \"Se perdieron los datos\"}");
+        else if(new_pass == null || new_pass.trim().isEmpty()) out.print("{\"error\":true, \"description\": \"Se perdieron los datos\"}");
         else{
-            String d= q.getEmail();
-            pass= cifrarBase64(pass);
-            int status= AccionesCuenta.ActualizarPassword(q.getIdCuenta(), pass);
+            if(!e.getPassword().equals(pass))
+                out.print("{\"error\": true, \"description\": \"la contraseña no coincide\"}");
+            String email= e.getEmail();
+            pass= cifrarBase64(new_pass);
+            int status= AccionesCuenta.ActualizarPassword(e.getIdCuenta(), new_pass);
             if(status>0){
                 sesion.removeAttribute("Usuario");
-                Cuenta UsuarioActivo = AccionesCuenta.IniciarS(d, pass);
+                Cuenta UsuarioActivo = AccionesCuenta.IniciarS(email, pass);
                 sesion.setAttribute("Usuario", UsuarioActivo);
-                request.setAttribute("CA", "Cambios guardados con éxito");
-                request.getRequestDispatcher("Cuenta.jsp").forward(request, response);
-                response.sendRedirect("Cuenta.jsp");
-                System.out.println("Contraseña cambiada con éxito");
+                out.print("{\"error\": false, \"description\":\"Cambios guardados con éxito\"}");
             }else{
-                System.out.println("Error al cambiar contraseña");
-                request.setAttribute("CD", "Error al actualizar los datos, por favor inténtalo más tarde");
-                request.getRequestDispatcher("Cuenta.jsp").forward(request, response);
+                System.out.println("Error al cambiar contraseña: Servlets: GuardarPassword.java");
+                out.print("{\"error\":true, \"description\": \"Error al actualizar su contraseña\"}");
             }
         }
     }

@@ -16,8 +16,8 @@ function HTMLObjectIdIsInDOM(element_id){
 function HTMLObjectsIdAreInDOM(elements_id){
     if(!elements_id)
         return false;
-    for(let element_id in elements_id){
-        let object = document.querySelector(`#${element_id}`);
+    for(let element_id of elements_id){
+        let object = document.querySelector("#"+element_id);
         if(object === null)
             return false;
     }
@@ -71,15 +71,15 @@ function BirthdayIsLogic(date){
         return false;
     return true;
 }
-function passwordIsSecure(password){
+function passwordIsSafe(password){
     if(!password)
-        return false;
+        return {description: "Ingresa una contraseña"};
     if(password.length < 8)
-        return {description: "length"};
+        return {description: "La contraseña debe de tener mínimo 8 caracteres"};
     if(/^[a-zA-ZñÑáéíóúÁÉÍÓÚÄëÏöÜäëïöü]+$/.test(password))
-        return {description: "only letters"}
-    if(/^[0-9]+$/)
-        return {description: "only numbers"};
+        return {description: "La contraseña debe de incluir letras y números"};
+    if(/^[0-9]+$/.test(password))
+        return {description: "La contraseña debe de incluir letras y números"};
     return true;
 }
 function stringHasNotNumbers(text){
