@@ -516,4 +516,41 @@ public class AccionesEstudiante {
         }
         return status;
     }
+    public static int AñadirMision(Misiones e){
+        int status=0;
+        try{
+            try (Connection con = ConexiónBD.getConnection()) {
+                String Q = "insert into Misiones (Mision, idJefe, Inicio, aprox, activo) values(?,?,?,?,?)";
+                PreparedStatement ps = con.prepareStatement(Q);
+                ps.setString(1, e.getMision());
+                ps.setInt(2, e.getIdJefe());
+                ps.setString(3, getFecha());
+                ps.setString(4, e.getAprox());
+                ps.setInt(5, 1);                
+                status=ps.executeUpdate();
+            }
+        }catch(SQLException d){
+            System.out.println("Hubo un error al añadir misión");
+            System.out.println(Arrays.toString(d.getStackTrace()));
+            System.out.println(d.getMessage());
+        }
+        return status;
+    }
+    public static int ActivarJefe(int idJefe){
+        int status=0;
+        try{
+            try (Connection con = ConexiónBD.getConnection()) {
+                String Q = "update jefes set Activo=? where idJefe=?";
+                PreparedStatement ps = con.prepareStatement(Q);
+                ps.setInt(1, 1);
+                ps.setInt(2, idJefe);
+                status=ps.executeUpdate();
+            }
+        }catch(SQLException d){
+            System.out.println("Hubo un error al activar al jefe");
+            System.out.println(Arrays.toString(d.getStackTrace()));
+            System.out.println(d.getMessage());
+        }
+        return status;
+    }
 }
